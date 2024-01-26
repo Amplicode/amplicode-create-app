@@ -1,0 +1,39 @@
+<%_
+  const screenMap = {
+    list: 'ListGuesser',
+    show: 'ShowGuesser',
+    edit: 'EditGuesser'
+  }
+_%>
+import {
+  Admin,
+  <%_ if (resources.length > 0) { _%>
+  Resource,
+  <%_ } _%>
+  <%_ if (resources.some(resource => resource.screens.some(screen => screen === 'show'))) { _%>
+  ShowGuesser,
+  <%_ } _%>
+  <%_ if (resources.some(resource => resource.screens.some(screen => screen === 'list'))) { _%>
+  ListGuesser,
+  <%_ } _%>
+  <%_ if (resources.some(resource => resource.screens.some(screen => screen === 'edit'))) { _%>
+  EditGuesser,
+  <%_ } _%>
+} from "react-admin";
+import { dataProvider } from "./dataProvider";
+import { authProvider } from "./authProvider";
+
+export const App = () => {
+  return (
+    <Admin dataProvider={dataProvider} authProvider={authProvider}>
+      <%_ resources.forEach(function(resource) { _%>
+        <Resource
+          name="<%= resource.entity %>"
+          <%_ resource.screens.forEach(function(screen) { _%>
+          <%= screen %>={<%= screenMap[screen] %>}
+          <%_ }); _%>
+        />
+      <%_ }); _%>
+    </Admin>
+  )
+};
