@@ -1,0 +1,36 @@
+{
+  "name": "create-amplicode",
+  "version": "0.0.1",
+  "description": "Create amplicode app",
+  "bin": {
+    "create-amplicode": "index.js"
+  },
+  "files": [
+    "templates/*"
+  ],
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^20.11.2",
+    "@types/parse-path": "^7.0.3",
+    "copy-webpack-plugin": "^12.0.1",
+    "ejs": "^3.1.9",
+    "minimist": "^1.2.8",
+    "parse-path": "^7.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.haulmont.com:amplicode-frontend/amplicode-create-app.git"
+  },
+  "author": "Haulmont",
+  "license": "ISC"
+}
