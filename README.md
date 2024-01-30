@@ -10,7 +10,7 @@ Scaffold an amplicode app base structure
 --targetDir - New emty directory (default: './')   
 --schema - Array of resources (default: []) // [{entity: 'owner', screens: ['list', 'show']}]
 
-Example: npm create amplicode@latest --appName test-app --targetDir /Users/artemsafronov/Workspace/test-app --schema [{entity: 'owner', screens: ['list', 'show']}]
+Example: npm create amplicode@latest --appName test-app --template react-admin serverUrl http://localhsot:8080 --targetDir /Users/artemsafronov/Workspace/test-app --schema [{entity: 'owner', screens: ['list', 'show']}]
 
 ## Development
 
