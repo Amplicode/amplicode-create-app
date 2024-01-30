@@ -37,11 +37,6 @@ const packageConfig = {
     ],
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [
-        { from: "templates", to: "templates" },
-      ],
-    }),
     new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true })
   ],
   devtool: 'nosources-source-map',
