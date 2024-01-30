@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Create amplicode app",
   "bin": {
-    "create-amplicode": "index.js"
+    "create-amplicode": "dist/index.js"
   },
   "files": [
-    "templates/*"
+    "dist/*"
   ],
   "devDependencies": {
     "@types/ejs": "^3.1.5",

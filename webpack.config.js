@@ -4,6 +4,7 @@
 
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require('webpack');
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
@@ -41,6 +42,7 @@ const packageConfig = {
         { from: "templates", to: "templates" },
       ],
     }),
+    new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true })
   ],
   devtool: 'nosources-source-map',
 };
