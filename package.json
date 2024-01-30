@@ -1,6 +1,6 @@
 {
   "name": "@amplicode/create-amplicode",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Create amplicode app",
   "bin": {
     "create-amplicode": "dist/index.js"
