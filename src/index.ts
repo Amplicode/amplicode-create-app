@@ -2,7 +2,6 @@ import * as minimist from 'minimist';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as ejs from 'ejs';
-import * as parsePath from 'parse-path';
 import { TEMPLATED_FILES, copyFile, dirIsEmpty, isValidAppName } from './utils';
 import { URL } from 'url';
 
@@ -176,11 +175,9 @@ const configureVite = () => {
     'utf-8',
   );
 
-  const { protocol, resource, port } = parsePath(ANSWERS.serverUrl);
+  const server_url = ANSWERS.serverUrl;
 
-  const server_url = `${protocol}://${resource}`;
-
-  const viteData = ejs.render(viteTemplate, { server_url, port });
+  const viteData = ejs.render(viteTemplate, { server_url });
 
   fs.writeFileSync(path.join(getTargetDir(), 'vite.config.ts'), viteData);
 };

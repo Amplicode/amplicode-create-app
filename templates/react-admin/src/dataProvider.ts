@@ -1,7 +1,14 @@
-import simpleRestProvider from "ra-data-simple-rest";
+import { DataProvider } from "react-admin";
+import springDataProvider from "./springDataProvider";
 
-export const dataProvider = simpleRestProvider(
+const baseDataProvider = springDataProvider(
   import.meta.env.VITE_SIMPLE_REST_URL
 );
 
-        
+export interface CustomDataProvider extends DataProvider {
+
+}
+
+export const dataProvider: CustomDataProvider = {
+  ...baseDataProvider,
+};

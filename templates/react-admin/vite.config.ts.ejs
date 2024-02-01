@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const PORT = <%= port %>;
 const SERVER_URL = "<%= server_url %>";
 const BASE_URL = process.env.BASE_URL ?? "/";
 const AMPLICODE_ENDPOINTS = "rest";
@@ -14,7 +13,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      [`^/(${AMPLICODE_ENDPOINTS})`]: `${SERVER_URL}:${PORT}`,
+      [`^/(${AMPLICODE_ENDPOINTS})`]: `${SERVER_URL}`,
     },
   },
   base: './',

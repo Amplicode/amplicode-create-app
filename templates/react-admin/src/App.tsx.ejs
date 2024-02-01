@@ -21,11 +21,10 @@ import {
   <%_ } _%>
 } from "react-admin";
 import { dataProvider } from "./dataProvider";
-import { authProvider } from "./authProvider";
 
 export const App = () => {
   return (
-    <Admin dataProvider={dataProvider} authProvider={authProvider}>
+    <Admin dataProvider={dataProvider}>
       <%_ resources.forEach(function(resource) { _%>
         <Resource
           name="<%= resource.entity %>"
