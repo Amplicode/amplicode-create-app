@@ -1,11 +1,12 @@
+// eslint-disable-next-line no-undef
 module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
-        "prettier",
-        "plugin:storybook/recommended"
+        "plugin:@tanstack/eslint-plugin-query/recommended",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],
