@@ -17,3 +17,5 @@
  - Added `@tanstack/eslint-plugin-query`
  - Changed proxy setting in `vite.config`
  - Deleted `authProvider`
+ - Added http-server dependency for Storybook Preview
+ - Added vscode launch.json and tasks.json configs

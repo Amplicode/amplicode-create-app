@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Launch App Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "${defaultBuildTask}"
+        },
+        {
+            "name": "Launch App Edge",
+            "type": "msedge",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "${defaultBuildTask}"
+        }
+    ]
+}
