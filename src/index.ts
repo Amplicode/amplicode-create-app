@@ -104,7 +104,7 @@ const copyStructure = () => {
   }
 };
 
-const getResouces = () => {
+const getResources = () => {
   if (!ANSWERS.schema || typeof ANSWERS.schema !== 'string') {
     return [];
   }
@@ -218,7 +218,7 @@ const init = () => {
   copyStructure();
 
   console.log('Register app sources');
-  registerApp(getResouces());
+  registerApp(getResources());
 
   console.log('Register package.json');
   registerPkg();

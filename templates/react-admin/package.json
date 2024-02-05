@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@amplicode/amplicode-ra-storybook": "^0.0.2",
     "@tanstack/eslint-plugin-query": "^5.18.0",
     "@types/node": "^18.16.1",
     "@types/react": "^18.0.22",
