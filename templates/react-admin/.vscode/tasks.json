@@ -9,7 +9,19 @@
 				"reveal": "never",
 				"group": "watchers"
 			},
-			"problemMatcher": ["$tsc-watch"],
+			"problemMatcher": {
+				"pattern": {
+					"regexp": "^(.*)$",
+					"file": 1,
+					"location": 2,
+					"message": 3
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": ".*",
+					"endsPattern": ".*"
+				}
+			},
 			"group": {
 				"kind": "build",
 				"isDefault": true
