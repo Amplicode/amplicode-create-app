@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as ejs from 'ejs';
 import { dirIsEmpty, isValidAppName } from './utils';
 import { URL } from 'url';
+import * as child_process from "child_process";
 
 const argv = minimist(process.argv.slice(2));
 
@@ -123,8 +124,6 @@ const processTemplate = () => {
   const files = collectFilesRecursive(templateDir)
       .map(filePath => path.relative(templateDir, filePath));
 
-  console.log(files);
-
   for (const file of files) {
 
     let targetFileName =
@@ -154,7 +153,6 @@ const collectFilesRecursive = (basePath: string): string[] => {
   const files = fs.readdirSync(basePath);
 
   return files.flatMap(fileName => {
-    console.log(basePath, fileName);
     let filePath = path.join(basePath, fileName);
     let stats = fs.statSync(filePath);
 
@@ -198,7 +196,25 @@ const getResources = () => {
 
   return resources;
 };
-const init = () => {
+
+async function installDependencies() {
+  let npmInstall = child_process.spawn(
+      'npm',
+      ['install'],
+      {
+        cwd: getTargetDir(),
+        stdio: ['inherit', 'inherit', 'inherit']
+      }
+  );
+
+  await new Promise(resolve => {
+    npmInstall.on('exit', (code) => {
+      resolve(undefined);
+    });
+  })
+}
+
+const init = async () => {
   checkRequiredArgs();
 
   validateAppName();
@@ -221,6 +237,9 @@ const init = () => {
 
   console.log('Process template');
   processTemplate();
+
+  console.log('Installing dependencies...');
+  await installDependencies();
 
   process.exit(0);
 };
