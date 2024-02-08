@@ -2,7 +2,7 @@ import * as minimist from 'minimist';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as ejs from 'ejs';
-import { TEMPLATED_FILES, copyFile, dirIsEmpty, isValidAppName } from './utils';
+import { dirIsEmpty, isValidAppName } from './utils';
 import { URL } from 'url';
 
 const argv = minimist(process.argv.slice(2));
@@ -12,12 +12,15 @@ const ANSWERS = {
   targetDir: argv.targetDir || '.',
   template: argv.template,
   serverUrl: argv.serverUrl,
+  restBasePath: argv.restBasePath,
   schema: argv.schema, // '[{"entity":"owner","screens":["list","show"]}]'
 };
 
 const RENAME_FILES = {
   _gitignore: '.gitignore',
 };
+
+const EJS_EXT = '.ejs';
 
 const getTemplateDir = () =>
   path.resolve(__dirname, '..', 'templates', ANSWERS.template);
@@ -26,7 +29,12 @@ const getTargetDir = () => path.resolve(__dirname, ANSWERS.targetDir);
 
 const checkRequiredArgs = () => {
   if (argv.help) {
-    console.log('Required arguments:\n  --appName:      Valid package name in kebab-case (e.g my-new-app)\n  --template:     Template name (e.g react-admin)\n  --serverUrl:    Valid server url (e.g http://localhost:8080)')
+    console.log(`Required arguments:
+  --appName:      Valid package name in kebab-case (e.g my-new-app)
+  --template:     Template name (e.g react-admin)
+  --serverUrl:    Valid server url (e.g http://localhost:8080)
+  --restBasePath: Rest base path (e.g /rest)`
+    )
   }
 
   ['appName', 'template', 'serverUrl'].forEach(required => {
@@ -91,17 +99,70 @@ const checkServerUrl = () => {
   }
 };
 
-const copyStructure = () => {
-  const files = fs.readdirSync(getTemplateDir());
+function ensureDirectory(dirName: string) {
+  if (fs.existsSync(dirName) && fs.statSync(dirName).isDirectory())
+    return;
 
-  for (const file of files.filter(f => !TEMPLATED_FILES.includes(f))) {
-    const targetFileName =
+  const parentDir = path.dirname(dirName);
+
+  ensureDirectory(parentDir);
+
+  fs.mkdirSync(dirName);
+}
+
+const processTemplate = () => {
+  const templateData = {
+    resources: getResources(),
+    appName: ANSWERS.appName,
+    server_url: ANSWERS.serverUrl,
+    restBasePath: ANSWERS.restBasePath
+  };
+
+  let templateDir = getTemplateDir();
+
+  const files = collectFilesRecursive(templateDir)
+      .map(filePath => path.relative(templateDir, filePath));
+
+  console.log(files);
+
+  for (const file of files) {
+
+    let targetFileName =
       RENAME_FILES[file as keyof typeof RENAME_FILES] ?? file;
-    copyFile(
-      path.join(getTemplateDir(), file),
-      path.join(getTargetDir(), targetFileName),
-    );
+    if (file.endsWith(EJS_EXT)) {
+      targetFileName = file.substring(0, file.length - EJS_EXT.length);
+
+      const template = fs.readFileSync(
+          path.join(templateDir, file),
+          'utf-8',
+      );
+      const appData = ejs.render(template, templateData);
+
+      ensureDirectory(path.dirname(path.join(getTargetDir(), targetFileName)));
+      fs.writeFileSync(path.join(getTargetDir(), targetFileName), appData);
+    } else {
+      ensureDirectory(path.dirname(path.join(getTargetDir(), targetFileName)));
+      fs.copyFileSync(
+          path.join(templateDir, file),
+          path.join(getTargetDir(), targetFileName)
+      );
+    }
   }
+};
+
+const collectFilesRecursive = (basePath: string): string[] => {
+  const files = fs.readdirSync(basePath);
+
+  return files.flatMap(fileName => {
+    console.log(basePath, fileName);
+    let filePath = path.join(basePath, fileName);
+    let stats = fs.statSync(filePath);
+
+    if (stats.isDirectory()) {
+      return collectFilesRecursive(filePath);
+    }
+    return filePath;
+  });
 };
 
 const getResources = () => {
@@ -137,62 +198,6 @@ const getResources = () => {
 
   return resources;
 };
-
-const registerApp = (resources: any) => {
-  const appTemplate = fs.readFileSync(
-    path.join(getTemplateDir(), 'src', `App.tsx.ejs`),
-    'utf-8',
-  );
-
-  const appData = ejs.render(appTemplate, { resources });
-
-  fs.writeFileSync(path.join(getTargetDir(), 'src', 'App.tsx'), appData);
-};
-
-const registerPkg = () => {
-  try {
-    const packageJson = JSON.parse(
-      fs.readFileSync(
-        path.join(getTemplateDir(), `package.json`),
-        'utf-8',
-      ),
-    );
-
-    packageJson.name = ANSWERS.appName;
-
-    fs.writeFileSync(
-      path.join(getTargetDir(), 'package.json'),
-      JSON.stringify(packageJson, null, 2) + '\n',
-    );
-  } catch (e) {
-    console.log('package.json parse error:', e);
-  }
-};
-
-const configureVite = () => {
-  const viteTemplate = fs.readFileSync(
-    path.join(getTemplateDir(), `vite.config.ts.ejs`),
-    'utf-8',
-  );
-
-  const server_url = ANSWERS.serverUrl;
-
-  const viteData = ejs.render(viteTemplate, { server_url });
-
-  fs.writeFileSync(path.join(getTargetDir(), 'vite.config.ts'), viteData);
-};
-
-const copyIndex = () => {
-  const indexTemplate = fs.readFileSync(
-    path.join(getTemplateDir(), 'index.html'),
-    'utf-8',
-  );
-
-  const indexData = ejs.render(indexTemplate, { appTitle: ANSWERS.appName });
-
-  fs.writeFileSync(path.join(getTargetDir(), 'index.html'), indexData);
-};
-
 const init = () => {
   checkRequiredArgs();
 
@@ -214,20 +219,8 @@ const init = () => {
     fs.mkdirSync(getTargetDir());
   }
 
-  console.log('Copy structure');
-  copyStructure();
-
-  console.log('Register app sources');
-  registerApp(getResources());
-
-  console.log('Register package.json');
-  registerPkg();
-
-  console.log('Configure vite');
-  configureVite();
-
-  console.log('Copy index');
-  copyIndex();
+  console.log('Process template');
+  processTemplate();
 
   process.exit(0);
 };
