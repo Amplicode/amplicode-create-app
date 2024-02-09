@@ -5,6 +5,7 @@ import * as ejs from 'ejs';
 import { dirIsEmpty, isValidAppName } from './utils';
 import { URL } from 'url';
 import * as child_process from "child_process";
+import * as packageJson from "./../package.json";
 
 const argv = minimist(process.argv.slice(2));
 
@@ -116,7 +117,8 @@ const processTemplate = () => {
     resources: getResources(),
     appName: ANSWERS.appName,
     server_url: ANSWERS.serverUrl,
-    restBasePath: ANSWERS.restBasePath
+    restBasePath: ANSWERS.restBasePath,
+    generatorVersion: packageJson.version,
   };
 
   let templateDir = getTemplateDir();
