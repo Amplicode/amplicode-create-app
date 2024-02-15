@@ -240,8 +240,8 @@ const init = async () => {
   console.log('Process template');
   processTemplate();
 
-  console.log('Installing dependencies...');
-  await installDependencies();
+  // console.log('Installing dependencies...');
+  // await installDependencies();
 
   process.exit(0);
 };
