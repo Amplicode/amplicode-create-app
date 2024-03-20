@@ -1,4 +1,4 @@
-# Amplicode Create App
+# Amplicode Admin UI Generator [![npm version](https://img.shields.io/npm/v/@amplicode/create-amplicode.svg)](https://www.npmjs.com/package/@amplicode/create-amplicode)
 
 Scaffold an amplicode app base structure
 
@@ -11,13 +11,3 @@ Scaffold an amplicode app base structure
 --schema - Array of resources (default: []) // [{entity: 'owner', screens: ['list', 'show']}]
 
 Example: npx --yes @amplicode/create-amplicode@latest --appName amp-rest --template react-admin --serverUrl http://localhost:8080/ --targetDir "$(pwd)/ampl-test" --restBasePath /rest
-
-## Development
-
-`npm i`
-
-`npm run watch`
-
-## Build
-
-`npm run build`
