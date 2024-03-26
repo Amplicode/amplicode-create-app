@@ -220,14 +220,6 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
             width: "56px",
           },
 
-          "& .RaDatagrid-rowCell:last-of-type": {
-            textAlign: "right",
-
-            "& .MuiButtonBase-root": {
-              padding: "10px",
-            },
-          },
-
           "& .MuiButton-startIcon": {
             display: "flex",
           },
