@@ -101,6 +101,14 @@ const checkTemplate = () => {
     }
 };
 
+const withHttpProtocol = (serverUrl: string) => {
+    if (!serverUrl.startsWith('http')) {
+        return `http://${serverUrl}`;
+    }
+
+    return serverUrl;
+}
+
 const checkServerUrl = () => {
     try {
         new URL(ANSWERS.serverUrl);
@@ -127,7 +135,7 @@ const processTemplate = () => {
     const templateData = {
         resources: getResources(),
         appName: ANSWERS.appName,
-        server_url: ANSWERS.serverUrl,
+        server_url: withHttpProtocol(ANSWERS.serverUrl),
         restBasePath: ANSWERS.restBasePath,
         generatorVersion: packageJson.version,
         ...Object.fromEntries(
