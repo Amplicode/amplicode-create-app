@@ -2,6 +2,7 @@
   "name": "@amplicode/create-amplicode",
   "version": "0.9.0",
   "description": "Create amplicode app",
+  "keywords": ["code", "typescript", "react", "generate"],
   "bin": {
     "create-amplicode": "dist/index.js"
   },
