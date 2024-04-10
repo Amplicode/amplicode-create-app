@@ -1,6 +1,6 @@
 {
   "name": "@amplicode/create-amplicode",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Create amplicode app",
   "keywords": ["code", "typescript", "react", "generate"],
   "bin": {
