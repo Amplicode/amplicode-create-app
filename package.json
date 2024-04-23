@@ -27,6 +27,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
+    "generate:ra": "npm run build && node ./dist/index.js --appName ra-test --template react-admin --serverUrl localhost:8080 --restBasePath /rest --schema '[{\"entity\":\"owners\",\"screens\":[\"list\",\"edit\"]}]' --targetDir ../test-ra-app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "publishConfig": {

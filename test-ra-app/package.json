@@ -1,0 +1,45 @@
+{
+  "name": "ra-test",
+  "private": true,
+  "version": "0.0.1",
+  "amplicode-generator-version": "0.10.1",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "serve": "vite preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
+    "format": "prettier --write ./src"
+  },
+  "dependencies": {
+    "ra-data-simple-rest": "^4.16.0",
+    "react": "^18.2.0",
+    "react-admin": "^4.16.0",
+    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.7",
+    "dayjs": "^1.11.10",
+    "deepmerge": "^4.3.1"
+  },
+  "devDependencies": {
+    "@amplicode/amplicode-ra-storybook": "0.9.2",
+    "@amplicode/amplicode-mui-storybook": "0.9.1",
+    "@tanstack/eslint-plugin-query": "^5.18.0",
+    "@types/node": "^18.16.1",
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "@vitejs/plugin-react": "^4.0.1",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.6",
+    "vite": "^4.3.9",
+    "http-server": "^14.1.1"
+  }
+}
