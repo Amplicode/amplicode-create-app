@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "amplicode-generator-version": "0.10.1",
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "cross-env MOCK_DATA=true vite --port 3000",
     "build": "vite build",
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "@vitejs/plugin-react": "^4.0.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",

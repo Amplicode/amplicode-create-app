@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "firstName": "Rickey",
+    "lastName": "Nicolas",
+    "address": "Ref to random faker data",
+    "city": "https://loremflickr.com/640/480/city",
+    "telephone": "Ref to random faker data"
+  },
+  {
+    "id": 2,
+    "firstName": "Theodora",
+    "lastName": "McKenzie",
+    "address": "Ref to random faker data",
+    "city": "https://loremflickr.com/640/480/city",
+    "telephone": "Ref to random faker data"
+  },
+  {
+    "id": 3,
+    "firstName": "Mireille",
+    "lastName": "Mertz",
+    "address": "Ref to random faker data",
+    "city": "https://loremflickr.com/640/480/city",
+    "telephone": "Ref to random faker data"
+  }
+]
