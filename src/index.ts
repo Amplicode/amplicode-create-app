@@ -27,11 +27,11 @@ const EJS_EXT = '.ejs';
 const DEFAULT_VERSIONS = {
     "raStorybookVersion": {
         packageName: "@amplicode/amplicode-ra-storybook",
-        defaultVersion: "0.9.3"
+        defaultVersion: "0.9.5"
     },
     "muiStorybook": {
         packageName: "@amplicode/amplicode-mui-storybook",
-        defaultVersion: "0.9.1"
+        defaultVersion: "0.9.4"
     }
 };
 
