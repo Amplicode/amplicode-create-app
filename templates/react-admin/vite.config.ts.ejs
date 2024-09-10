@@ -20,5 +20,10 @@ export default ({ mode }) => {
       },
     },
     base: "./",
+    resolve: {
+      alias: {
+        src: '/src'
+      }
+    },
   });
 };
