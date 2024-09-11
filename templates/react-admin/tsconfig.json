@@ -24,6 +24,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
+
+    "baseUrl": ".",
   },
   "include": [
     "src"
