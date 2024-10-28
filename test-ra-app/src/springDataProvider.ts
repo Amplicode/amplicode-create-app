@@ -16,23 +16,7 @@ export default (
       ...params.filter,
     };
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => {
-      if (json.content !== undefined && json.totalElements !== undefined) {
-        // Page
-        return {
-          data: json.content,
-          total: json.totalElements,
-        };
-      } else if (Array.isArray(json)) {
-        // List
-        return {
-          data: json,
-          total: json.length,
-        };
-      } else {
-        throw new Error("Unsupported getList() response: " + Object.keys(json));
-      }
-    });
+    return httpClient(url).then(({ json }) => parseSpringPageOrPagedModel(json));
   },
 
   getOne: (resource, params) =>
@@ -58,23 +42,7 @@ export default (
       [params.target]: params.id,
     };
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => {
-      if (json.content !== undefined && json.totalElements !== undefined) {
-        // Page
-        return {
-          data: json.content,
-          total: json.totalElements,
-        };
-      } else if (Array.isArray(json)) {
-        // List
-        return {
-          data: json,
-          total: json.length,
-        };
-      } else {
-        throw new Error("Unsupported getList() response: " + Object.keys(json));
-      }
-    });
+    return httpClient(url).then(({ json }) => parseSpringPageOrPagedModel(json));
   },
 
   update: (resource, params) =>
@@ -111,4 +79,31 @@ export default (
       method: "DELETE",
     }).then(({ json }) => ({ data: json }));
   },
+
 });
+
+function parseSpringPageOrPagedModel(json: any) {
+  if (json.content !== undefined) {
+    // Page
+    let total: number;
+    if (json.totalElements !== undefined){
+      total = json.totalElements
+    } else if (json.page?.totalElements !== undefined) {
+      total = json.page.totalElements;
+    } else {
+      throw new Error("Unsupported getList() response: " + Object.keys(json));
+    }
+    return {
+      data: json.content,
+      total,
+    };
+  } else if (Array.isArray(json)) {
+    // List
+    return {
+      data: json,
+      total: json.length,
+    };
+  } else {
+    throw new Error("Unsupported getList() response: " + Object.keys(json));
+  }
+}

@@ -1,5 +1,8 @@
-import { alpha, darken, lighten, Theme, rgbToHex } from "@mui/material";
-import { CSSInterpolation, Components as MuiComponents } from "@mui/material/styles";
+import { alpha, darken, lighten, Theme } from "@mui/material";
+import {
+  CSSInterpolation,
+  Components as MuiComponents,
+} from "@mui/material/styles";
 
 export type BaseRaComponentProps = {
   styleOverrides: {
@@ -20,7 +23,9 @@ type RaComponents = {
   RaDatagrid: BaseRaComponentProps;
 };
 
-export const createComponents = (theme: Theme): MuiComponents & RaComponents => {
+export const createComponents = (
+  theme: Theme
+): MuiComponents & RaComponents => {
   return {
     MuiCssBaseline: {
       styleOverrides: {
@@ -290,28 +295,28 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
 
           "& .MuiButton-root": {
             borderRadius: "6px",
-            transition: `background-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, box-shadow ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, border-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms`,
-            color: "#fff",
-            backgroundColor: theme.palette.primary.main,
-            boxShadow: `${theme.colors.neutral[200]} 0px 0px 1px, ${alpha(
-              theme.colors.neutral[800],
-              0.08
-            )} 0px 1px 3px`,
-            lineHeight: 1.75,
+            // transition: `background-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, box-shadow ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, border-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms, color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut} 0ms`,
+            // color: "#fff",
+            // backgroundColor: theme.palette.primary.main,
+            // boxShadow: `${theme.colors.neutral[200]} 0px 0px 1px, ${alpha(
+            //   theme.colors.neutral[800],
+            //   0.08
+            // )} 0px 1px 3px`,
+            lineHeight: 1.5,
             minWidth: "64px",
             padding: "4px 18px",
             fontWeight: 600,
             fontSize: "14px",
           },
 
-          "& .MuiButton-root:hover": {
-            textDecoration: "none",
-            backgroundColor: theme.palette.primary.dark,
-            boxShadow: `${theme.colors.neutral[200]} 0px 0px 1px, ${alpha(
-              theme.colors.neutral[800],
-              0.08
-            )} 0px 3px 8px`,
-          },
+        //   "& .MuiButton-root:hover": {
+        //     textDecoration: "none",
+        //     backgroundColor: theme.palette.primary.dark,
+        //     boxShadow: `${theme.colors.neutral[200]} 0px 0px 1px, ${alpha(
+        //       theme.colors.neutral[800],
+        //       0.08
+        //     )} 0px 3px 8px`,
+        //   },
         },
       },
     },
@@ -409,10 +414,17 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
     },
 
     MuiFormControl: {
+      defaultProps: {
+        variant: "outlined" as const,
+        margin: "dense" as const,
+        size: "small" as const,
+        fullWidth: true,
+      },
       styleOverrides: {
         root: {
           marginTop: 0,
           transform: "none",
+          width: "100%",
 
           "& .MuiFormLabel-root": {
             position: "static",
@@ -476,14 +488,20 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
           "&.Mui-focused": {
             "& .MuiOutlinedInput-notchedOutline": {
               borderWidth: "1px",
-              boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0px 0px 0px 0.2rem`,
+              boxShadow: `${alpha(
+                theme.palette.primary.main,
+                0.25
+              )} 0px 0px 0px 0.2rem`,
             },
           },
 
           "&.Mui-focused.Mui-error": {
             "& .MuiOutlinedInput-notchedOutline": {
               borderWidth: "1px",
-              boxShadow: `${alpha(theme.palette.error.main, 0.25)} 0px 0px 0px 0.2rem`,
+              boxShadow: `${alpha(
+                theme.palette.error.main,
+                0.25
+              )} 0px 0px 0px 0.2rem`,
             },
           },
         },
@@ -491,6 +509,9 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
     },
 
     MuiAutocomplete: {
+      defaultProps: {
+        fullWidth: true,
+      },
       styleOverrides: {
         popper: {
           boxShadow: `${theme.colors.neutral[200]} 0px 0px 1px, ${alpha(
@@ -612,7 +633,7 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
       styleOverrides: {
         root: {
           "& .MuiInputBase-root": {
-            minWidth: "250px",
+            width: "100%",
           },
         },
       },
@@ -622,6 +643,17 @@ export const createComponents = (theme: Theme): MuiComponents & RaComponents => 
       styleOverrides: {
         root: {
           backgroundImage: "none",
+        },
+      },
+    },
+
+    MuiButton: {
+      defaultProps: {
+        variant: "outlined" as const,
+      },
+      styleOverrides: {
+        sizeSmall: {
+          padding: `${theme.spacing(0.5)} ${theme.spacing(1.5)}`,
         },
       },
     },

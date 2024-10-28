@@ -2,7 +2,7 @@
   "name": "ra-test",
   "private": true,
   "version": "0.0.1",
-  "amplicode-generator-version": "0.10.3",
+  "amplicode-generator-version": "0.10.4",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
@@ -24,8 +24,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@amplicode/amplicode-ra-storybook": "^0.9.6",
-    "@amplicode/amplicode-mui-storybook": "^0.9.4",
+    "@amplicode/amplicode-ra-storybook": "^0.9.9",
+    "@amplicode/amplicode-mui-storybook": "^0.9.5",
     "@tanstack/eslint-plugin-query": "^5.18.0",
     "@types/node": "^18.16.1",
     "@types/react": "^18.0.22",
