@@ -84,18 +84,19 @@ export default (
 
 function parseSpringPageOrPagedModel(json: any) {
   if (json.content !== undefined) {
-    // Page
-    let total: number;
+    let total: number | undefined;
     if (json.totalElements !== undefined){
       total = json.totalElements
     } else if (json.page?.totalElements !== undefined) {
       total = json.page.totalElements;
-    } else {
-      throw new Error("Unsupported getList() response: " + Object.keys(json));
     }
+
     return {
       data: json.content,
       total,
+      pageInfo: 'last' in json ? {
+        hasNextPage: !json.last
+      } : undefined,
     };
   } else if (Array.isArray(json)) {
     // List
