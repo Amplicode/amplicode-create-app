@@ -6,13 +6,13 @@ export default (
   httpClient = fetchUtils.fetchJson
 ): DataProvider => ({
   getList: (resource, params) => {
-    const { page, perPage } = params.pagination;
-    const { field, order } = params.sort;
+    const { page, perPage } = params.pagination || {};
+    const { field, order } = params.sort || {};
 
     const query = {
-      sort: field + "," + order,
-      page: page - 1,
-      size: perPage,
+      ...(field && { sort: field + "," + `${order ? order : "ASC"}` }),
+      ...(page && { page: page - 1 }),
+      ...(perPage && { size: perPage }),
       ...params.filter,
     };
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
